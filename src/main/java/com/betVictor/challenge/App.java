@@ -1,6 +1,6 @@
 package com.betVictor.challenge;
 
-import com.betVictor.challenge.webSocketService.config.ServicesMediator;
+import com.betVictor.challenge.uiHandlerService.ServicesMediator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

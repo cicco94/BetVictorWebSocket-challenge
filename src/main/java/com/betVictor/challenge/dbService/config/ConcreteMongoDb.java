@@ -1,12 +1,11 @@
 package com.betVictor.challenge.dbService.config;
 
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
 public class ConcreteMongoDb implements IDatabase{
-    private static long _id = 0;
+    private static long id = System.currentTimeMillis();
     private final MongoClient mongoClient;
 
     public ConcreteMongoDb(String host, int port) {
@@ -18,26 +17,28 @@ public class ConcreteMongoDb implements IDatabase{
     }
 
     @Override
-    public boolean insertDocument(String database, String collection, String content) {
+    public long insertDocument(String database, String collection, String content) {
         getCollection(database, collection)
-                .insertOne(new Document("_id", _id++).append("content", content));
-        return true;
+                .insertOne(new Document("_id", ++id).append("content", content));
+        return id;
     }
 
     @Override
-    public FindIterable<Document> getDocument(String database, String collection, long id) {
-        return getCollection(database, collection).find(new Document("_id", id));
+    public Document getDocument(String database, String collection, long id) {
+        return getCollection(database, collection).find(new Document("_id", id)).iterator().next();
     }
 
     @Override
-    public boolean updateDocument(String database, String collection, String id, String content) {
-        return getCollection(database, collection).findOneAndUpdate(
+    public long updateDocument(String database, String collection, long id, String content) {
+        getCollection(database, collection).findOneAndUpdate(
                 new Document("_id", id),
-                new Document("_id", id).append("content", content)) != null;
+                new Document("content", content)); // TODO do I have to pass the id again?
+        return id;
     }
 
     @Override
-    public boolean deleteDocument(String database, String collection, String id) {
-        return getCollection(database, collection).findOneAndDelete(new Document("_id", id)) != null;
+    public long deleteDocument(String database, String collection, long id) {
+        getCollection(database, collection).findOneAndDelete(new Document("_id", id));
+        return id;
     }
 }

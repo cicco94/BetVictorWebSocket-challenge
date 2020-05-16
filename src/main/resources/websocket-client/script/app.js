@@ -17,19 +17,19 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
-        console.log('Connected: ' + frame);
+        showGreeting('Web socket connection established!');
         stompClient.subscribe('/topic/greetings', function (greeting) {
-            showGreeting(greeting);
+            showGreeting(greeting.body);
         });
     });
 }
 
 function disconnect() {
     if (stompClient !== null) {
+        console.log("Web socket connection closed!");
         stompClient.disconnect();
     }
     setConnected(false);
-    console.log("Disconnected");
 }
 
 function sendName() {
