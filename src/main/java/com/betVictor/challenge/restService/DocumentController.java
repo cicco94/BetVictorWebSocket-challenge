@@ -1,39 +1,31 @@
 package com.betVictor.challenge.restService;
 
+import com.betVictor.challenge.webSocketService.config.ServicesMediator;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.betVictor.challenge.model.GenericDocument;
 
 @RestController
 // @RequestMapping("/api/v1/")
 public class DocumentController {
-    @GetMapping("/getDocument")
-    @ApiOperation(value = "Get a new document")
-    public GenericDocument test(@RequestParam String id) {
-        return new GenericDocument();
-    }
+    @Autowired
+    ServicesMediator servicesMediator;
 
     @PostMapping("/insertDocument")
     @ApiOperation(value = "Insert a new document")
-    public GenericDocument insertDocument(@RequestParam String content) {
-        return new GenericDocument();
+    public void insertDocument(@RequestParam String database, @RequestParam String collection, @RequestParam String content) {
+        servicesMediator.insertDocument(database, collection, content);
     }
 
     @PostMapping("/updateDocument")
     @ApiOperation(value = "Update a document")
-    public GenericDocument updateDocument(@RequestParam String id, @RequestParam String content) {
-        return new GenericDocument();
-    }
-
-    @PostMapping("/upsertDocument")
-    @ApiOperation(value = "Upsert a document")
-    public GenericDocument upsertDocument(@RequestParam String id, @RequestParam String content) {
-        return new GenericDocument();
+    public void updateDocument(@RequestParam String database, @RequestParam String collection, @RequestParam String id, @RequestParam String content) {
+        servicesMediator.updateDocument(database, collection, id, content);
     }
 
     @DeleteMapping("/deleteDocument")
     @ApiOperation(value = "Delete a document")
-    public GenericDocument deleteDocument(@RequestParam String id) {
-        return new GenericDocument();
+    public void deleteDocument(@RequestParam String database, @RequestParam String collection, @RequestParam String id) {
+        servicesMediator.deleteDocument(database, collection, id);
     }
 }
