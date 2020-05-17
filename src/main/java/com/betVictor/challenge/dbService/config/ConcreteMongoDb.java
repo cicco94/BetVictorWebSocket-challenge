@@ -20,26 +20,24 @@ public class ConcreteMongoDb implements IDatabase{
     public static String getConnectionUrl(String host, String port) { return "mongodb://" + host + ":" + port; }
 
     @Override
-    public GenericRecord insertDocument(String collection, String content) {
-        final GenericRecord genericRecord = new GenericRecord(++id, content);
-        mongoOps.insert(genericRecord, collection);
-        return genericRecord;
+    public String insertDocument(String collection, String content) {
+        return mongoOps.insert(new GenericRecord(++id, content), collection).toJson();
     }
 
     @Override
-    public GenericRecord getDocument(String collection, long id) {
-        return mongoOps.findOne(new Query(where("_id").is(id)), GenericRecord.class, collection);
+    public String getDocument(String collection, long id) {
+        GenericRecord genericRecord = mongoOps.findOne(new Query(where("_id").is(id)), GenericRecord.class, collection);
+        if(genericRecord != null) return genericRecord.toJson();
+        return null;
     }
 
     @Override
-    public GenericRecord updateDocument(String collection, long id, String content) {
-        mongoOps.updateFirst(new Query(where("_id").is(id)), update("content", content), GenericRecord.class, collection);
-        return new GenericRecord(id, content);
+    public String updateDocument(String collection, long id, String content) {
+        return mongoOps.updateFirst(new Query(where("_id").is(id)), update("content", content), GenericRecord.class, collection).toString();
     }
 
     @Override
-    public GenericRecord deleteDocument(String collection, long id) {
-        mongoOps.remove(new Query(where("_id").is(id)), GenericRecord.class, collection);
-        return new GenericRecord(id);
+    public String deleteDocument(String collection, long id) {
+        return mongoOps.remove(new Query(where("_id").is(id)), GenericRecord.class, collection).toString();
     }
 }

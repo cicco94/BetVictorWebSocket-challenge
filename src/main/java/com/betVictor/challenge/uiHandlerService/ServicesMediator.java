@@ -3,7 +3,6 @@ package com.betVictor.challenge.uiHandlerService;
 import com.betVictor.challenge.dbService.config.ConcreteMongoDb;
 import com.betVictor.challenge.dbService.config.IDatabase;
 import com.betVictor.challenge.common.model.AppProps;
-import com.betVictor.challenge.common.model.GenericRecord;
 import com.betVictor.challenge.common.model.HttpResponse;
 import com.betVictor.challenge.uiHandlerService.model.HttpMethodInput;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -47,16 +46,20 @@ public class ServicesMediator {
 
     public HttpResponse httpRequest(String onStartingMessage,
                                     HttpMethodInput httpMethodInput,
-                                    Function<HttpMethodInput, GenericRecord> function){
+                                    Function<HttpMethodInput, String> function){
         messagingTemplate.convertAndSend(props.getWebsocketDestination(),  onStartingMessage);
         try{
-            final GenericRecord genericRecord = function.apply(httpMethodInput);
-            messagingTemplate.convertAndSend(props.getWebsocketDestination(), "success for: " + genericRecord.toJson());
-            return new HttpResponse(genericRecord, 200);
+            final String result = function.apply(httpMethodInput);
+            if(result == null){
+                final String message = "404 for request: " + httpMethodInput.toJson();
+                messagingTemplate.convertAndSend(props.getWebsocketDestination(), message);
+                return new HttpResponse(message, 404);
+            }
+            messagingTemplate.convertAndSend(props.getWebsocketDestination(), "success for: " + result);
+            return new HttpResponse(result, 200);
         } catch (Exception ex){
-            final String message = ex.getMessage() + " on '" + httpMethodInput.toJson() + "'";
-            messagingTemplate.convertAndSend(props.getWebsocketDestination(), message);
-            return new HttpResponse(new GenericRecord(-1, httpMethodInput.toJson()), 500);
+            messagingTemplate.convertAndSend(props.getWebsocketDestination(), ex.getMessage());
+            return new HttpResponse(ex.getMessage(), 500);
         }
     }
 }

@@ -22,10 +22,14 @@ public class HttpMethodInput {
         this.content = content;
     }
 
-    public String toJson() {
-        return "{collection: '" + collection + "', id: " + id + ", content: '" + content + "'}";
+    @Override
+    public String toString() {
+        return "{" +
+                "collection: '" + collection + '\'' +
+                ", id: " + id +
+                ", content: '" + content + '\'' +
+                '}';
     }
 
-    @Override
-    public String toString(){ return toJson(); }
+    public String toJson(){ return toString(); }
 }
