@@ -13,12 +13,12 @@ public class ConcreteMongoDb implements IDatabase{
     private static long id = System.currentTimeMillis();
     private final MongoOperations mongoOps;
 
-    public ConcreteMongoDb(String host, int port, String database) {
+    public ConcreteMongoDb(String host, String port, String database) {
         this.mongoOps = new MongoTemplate(MongoClients.create(getConnectionUrl(host, port)), database);
     }
 
     @Override
-    public String getConnectionUrl(String host, int port) { return "mongodb://" + host + ":" + port; }
+    public String getConnectionUrl(String host, String port) { return "mongodb://" + host + ":" + port; }
 
     @Override
     public GenericRecord insertDocument(String collection, String content) {

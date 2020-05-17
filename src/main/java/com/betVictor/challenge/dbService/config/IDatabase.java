@@ -4,7 +4,7 @@ import com.betVictor.challenge.model.GenericRecord;
 
 public interface IDatabase {
 
-    String getConnectionUrl(String host, int port);
+    String getConnectionUrl(String host, String port);
 
     GenericRecord insertDocument(String collection, String content);
 

@@ -1,5 +1,7 @@
 package com.betVictor.challenge.webSocketService.config;
 
+import com.betVictor.challenge.model.AppProps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -9,20 +11,18 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    @Autowired
+    private AppProps appProps;
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/app");
-    }
+    public void configureMessageBroker(MessageBrokerRegistry config) { }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/gs-guide-websocket")
+        registry.addEndpoint(appProps.getWebsocketEndpoint())
                 .addInterceptors(new HttpHandshakeInterceptor())
                 .setAllowedOrigins("*")
-                .withSockJS()
-        ;
+                .withSockJS();
     }
 
 }

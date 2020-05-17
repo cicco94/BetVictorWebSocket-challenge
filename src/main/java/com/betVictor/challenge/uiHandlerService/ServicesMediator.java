@@ -2,19 +2,23 @@ package com.betVictor.challenge.uiHandlerService;
 
 import com.betVictor.challenge.dbService.config.ConcreteMongoDb;
 import com.betVictor.challenge.dbService.config.IDatabase;
+import com.betVictor.challenge.model.AppProps;
 import com.betVictor.challenge.model.GenericRecord;
 import com.betVictor.challenge.model.HttpResponse;
 import com.betVictor.challenge.uiHandlerService.model.HttpMethodInput;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-
 import java.util.function.Function;
 
 public class ServicesMediator {
-    private final IDatabase database = new ConcreteMongoDb("localhost", 27017, "databaseName"); // TODO pass by conf
+    private final IDatabase database;
     private final SimpMessageSendingOperations messagingTemplate;
+    private final AppProps props;
 
-    public ServicesMediator(SimpMessageSendingOperations messagingTemplate) {
+    public ServicesMediator(SimpMessageSendingOperations messagingTemplate, AppProps props) {
+        database = new ConcreteMongoDb(props.getMongodbHost(),
+                props.getMongodbPort(), props.getMongodbDatabase());
         this.messagingTemplate = messagingTemplate;
+        this.props = props;
     }
 
     public HttpResponse insertDocument(String collection, String content) {
@@ -44,14 +48,14 @@ public class ServicesMediator {
     public HttpResponse httpRequest(String onStartingMessage,
                                     HttpMethodInput httpMethodInput,
                                     Function<HttpMethodInput, GenericRecord> function){
-        messagingTemplate.convertAndSend("/topic/greetings",  onStartingMessage);
+        messagingTemplate.convertAndSend(props.getWebsocketDestination(),  onStartingMessage);
         try{
             final GenericRecord genericRecord = function.apply(httpMethodInput);
-            messagingTemplate.convertAndSend("/topic/greetings", "success for: " + genericRecord.toJson());
+            messagingTemplate.convertAndSend(props.getWebsocketDestination(), "success for: " + genericRecord.toJson());
             return new HttpResponse(genericRecord, 200);
         } catch (Exception ex){
             final String message = ex.getMessage() + " on '" + httpMethodInput.toJson() + "'";
-            messagingTemplate.convertAndSend("/topic/greetings", message);
+            messagingTemplate.convertAndSend(props.getWebsocketDestination(), message);
             return new HttpResponse(new GenericRecord(-1, httpMethodInput.toJson()), 500);
         }
     }
