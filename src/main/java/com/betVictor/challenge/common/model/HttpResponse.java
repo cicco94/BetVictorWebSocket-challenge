@@ -9,10 +9,7 @@ public class HttpResponse {
 
     @Override
     public String toString() {
-        return "{" +
-                "message: '" + message + '\'' +
-                ", statusCode: " + statusCode +
-                '}';
+        return "{message: '" + message + "', statusCode: " + statusCode + "}";
     }
 
     public String toJson(){ return toString(); }

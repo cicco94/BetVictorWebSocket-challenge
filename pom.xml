@@ -13,6 +13,7 @@
         <spring.version>2.2.7.RELEASE</spring.version>
         <spring.socket>5.2.6.RELEASE</spring.socket>
         <swagger.version>2.9.2</swagger.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
