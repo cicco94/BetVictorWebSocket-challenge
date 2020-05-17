@@ -1,44 +1,42 @@
 package com.betVictor.challenge.dbService.config;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
+import com.betVictor.challenge.dbService.model.GenericRecord;
+import com.mongodb.client.MongoClients;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Update.update;
 
 public class ConcreteMongoDb implements IDatabase{
     private static long id = System.currentTimeMillis();
-    private final MongoClient mongoClient;
+    private final MongoOperations mongoOps;
 
-    public ConcreteMongoDb(String host, int port) {
-        mongoClient = new MongoClient(host, port);
-    }
-
-    private MongoCollection<Document> getCollection(String database, String collection){
-        return mongoClient.getDatabase(database).getCollection(collection);
+    public ConcreteMongoDb(String host, int port, String database) {
+        this.mongoOps = new MongoTemplate(MongoClients.create("mongodb://" + host + ":" + port), database);
     }
 
     @Override
-    public long insertDocument(String database, String collection, String content) {
-        getCollection(database, collection)
-                .insertOne(new Document("_id", ++id).append("content", content));
+    public long insertDocument(String collection, String content) {
+        mongoOps.insert(new GenericRecord(++id, content), collection);
         return id;
     }
 
     @Override
-    public Document getDocument(String database, String collection, long id) {
-        return getCollection(database, collection).find(new Document("_id", id)).iterator().next();
+    public GenericRecord getDocument(String collection, long id) {
+        return mongoOps.findOne(new Query(where("_id").is(id)), GenericRecord.class, collection);
     }
 
     @Override
-    public long updateDocument(String database, String collection, long id, String content) {
-        getCollection(database, collection).findOneAndUpdate(
-                new Document("_id", id),
-                new Document("content", content)); // TODO do I have to pass the id again?
+    public long updateDocument(String collection, long id, String content) {
+        mongoOps.updateFirst(new Query(where("_id").is(id)), update("content", content), GenericRecord.class, collection);
         return id;
     }
 
     @Override
-    public long deleteDocument(String database, String collection, long id) {
-        getCollection(database, collection).findOneAndDelete(new Document("_id", id));
+    public long deleteDocument(String collection, long id) {
+        mongoOps.remove(new Query(where("_id").is(id)), GenericRecord.class, collection);
         return id;
     }
 }

@@ -1,14 +1,14 @@
 package com.betVictor.challenge.dbService.config;
 
-import org.bson.Document;
+import com.betVictor.challenge.dbService.model.GenericRecord;
 
 public interface IDatabase {
 
-    long insertDocument(String database, String collection, String content);
+    long insertDocument(String collection, String content);
 
-    Document getDocument(String database, String collection, long id);
+    GenericRecord getDocument(String collection, long id);
 
-    long updateDocument(String database, String collection, long id, String content);
+    long updateDocument(String collection, long id, String content);
 
-    long deleteDocument(String database, String collection, long id);
+    long deleteDocument(String collection, long id);
 }
