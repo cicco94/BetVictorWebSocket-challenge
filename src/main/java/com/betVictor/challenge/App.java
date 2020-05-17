@@ -21,7 +21,9 @@ public class App {
     @Autowired
     public AppProps getProperties(Environment env) {
         return new AppProps(env.getProperty("mongodb.host"), env.getProperty("mongodb.port"), env.getProperty("mongodb.database"),
-                env.getProperty("websocket.endpoint"), env.getProperty("websocket.destination"));
+                env.getProperty("websocket.endpoint"), env.getProperty("websocket.destination"),
+                env.getProperty("system.version.dbService"), env.getProperty("system.version.restService"),
+                env.getProperty("system.version.uiHandlerService"), env.getProperty("system.version.webSocketService"));
     }
 
     @Bean

@@ -8,5 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AppProps {
-    private final String mongodbHost, mongodbPort, mongodbDatabase, websocketEndpoint, websocketDestination;
+    private final String mongodbHost, mongodbPort, mongodbDatabase;
+    private final String websocketEndpoint, websocketDestination;
+    private final String systemVersionDbService, systemVersionRestService,
+            systemVersionUiHandlerService, systemVersionWebSocketService;
 }
