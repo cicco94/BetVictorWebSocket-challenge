@@ -1,6 +1,6 @@
 package com.betVictor.challenge;
 
-import com.betVictor.challenge.model.AppProps;
+import com.betVictor.challenge.common.model.AppProps;
 import com.betVictor.challenge.uiHandlerService.ServicesMediator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

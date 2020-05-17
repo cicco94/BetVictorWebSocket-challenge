@@ -1,4 +1,4 @@
-package com.betVictor.challenge.model;
+package com.betVictor.challenge.common.model;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -19,7 +19,7 @@ public class GenericRecord extends HttpResponseObject {
 
     @Override
     public String toString() {
-        return "{_id: " + _id + ", content: '" + content + "}";
+        return "{_id: " + _id + ", content: '" + content + "'}";
     }
 
     @Override

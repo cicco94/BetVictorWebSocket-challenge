@@ -1,4 +1,4 @@
-package com.betVictor.challenge.model;
+package com.betVictor.challenge.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

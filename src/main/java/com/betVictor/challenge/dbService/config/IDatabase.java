@@ -1,10 +1,8 @@
 package com.betVictor.challenge.dbService.config;
 
-import com.betVictor.challenge.model.GenericRecord;
+import com.betVictor.challenge.common.model.GenericRecord;
 
 public interface IDatabase {
-
-    String getConnectionUrl(String host, String port);
 
     GenericRecord insertDocument(String collection, String content);
 

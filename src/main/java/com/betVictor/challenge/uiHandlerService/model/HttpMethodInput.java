@@ -23,7 +23,7 @@ public class HttpMethodInput {
     }
 
     public String toJson() {
-        return "{ collection:' " + collection + ", id: " + id + ", content:' " + content + "}";
+        return "{collection: '" + collection + "', id: " + id + ", content: '" + content + "'}";
     }
 
     @Override

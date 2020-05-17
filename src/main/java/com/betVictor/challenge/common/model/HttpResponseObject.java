@@ -1,4 +1,4 @@
-package com.betVictor.challenge.model;
+package com.betVictor.challenge.common.model;
 
 public abstract class HttpResponseObject {
 

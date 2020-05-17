@@ -1,6 +1,6 @@
 package com.betVictor.challenge.webSocketService.config;
 
-import com.betVictor.challenge.model.AppProps;
+import com.betVictor.challenge.common.model.AppProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

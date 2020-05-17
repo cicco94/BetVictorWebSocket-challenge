@@ -1,6 +1,6 @@
 package com.betVictor.challenge.dbService.config;
 
-import com.betVictor.challenge.model.GenericRecord;
+import com.betVictor.challenge.common.model.GenericRecord;
 import com.mongodb.client.MongoClients;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,8 +17,7 @@ public class ConcreteMongoDb implements IDatabase{
         this.mongoOps = new MongoTemplate(MongoClients.create(getConnectionUrl(host, port)), database);
     }
 
-    @Override
-    public String getConnectionUrl(String host, String port) { return "mongodb://" + host + ":" + port; }
+    public static String getConnectionUrl(String host, String port) { return "mongodb://" + host + ":" + port; }
 
     @Override
     public GenericRecord insertDocument(String collection, String content) {

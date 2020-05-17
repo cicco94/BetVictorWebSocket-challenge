@@ -1,4 +1,4 @@
-package com.betVictor.challenge.model;
+package com.betVictor.challenge.common.model;
 
 import lombok.AllArgsConstructor;
 
@@ -9,7 +9,7 @@ public class HttpResponse {
 
     @Override
     public String toString() {
-        return "{httpResponseObject: " + httpResponseObject.toJson() + ", statusCode:" + statusCode + "}";
+        return "{httpResponseObject: " + httpResponseObject.toJson() + ", statusCode: " + statusCode + "}";
     }
 
     public String toJson(){ return toString(); }

@@ -2,9 +2,9 @@ package com.betVictor.challenge.uiHandlerService;
 
 import com.betVictor.challenge.dbService.config.ConcreteMongoDb;
 import com.betVictor.challenge.dbService.config.IDatabase;
-import com.betVictor.challenge.model.AppProps;
-import com.betVictor.challenge.model.GenericRecord;
-import com.betVictor.challenge.model.HttpResponse;
+import com.betVictor.challenge.common.model.AppProps;
+import com.betVictor.challenge.common.model.GenericRecord;
+import com.betVictor.challenge.common.model.HttpResponse;
 import com.betVictor.challenge.uiHandlerService.model.HttpMethodInput;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import java.util.function.Function;
