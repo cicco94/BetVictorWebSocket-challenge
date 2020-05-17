@@ -19,7 +19,7 @@ function connect() {
         setConnected(true);
         showGreeting('Web socket connection established!');
         stompClient.subscribe('/topic/logs', function (greeting) {
-            showGreeting(greeting.body);
+            showGreeting(greeting.body + ", timestamp: " + Date.now());
         });
     });
 }
