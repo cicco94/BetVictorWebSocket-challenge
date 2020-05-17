@@ -1,6 +1,6 @@
 package com.betVictor.challenge.dbService.config;
 
-import com.betVictor.challenge.dbService.model.GenericRecord;
+import com.betVictor.challenge.model.GenericRecord;
 import com.mongodb.client.MongoClients;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -14,13 +14,17 @@ public class ConcreteMongoDb implements IDatabase{
     private final MongoOperations mongoOps;
 
     public ConcreteMongoDb(String host, int port, String database) {
-        this.mongoOps = new MongoTemplate(MongoClients.create("mongodb://" + host + ":" + port), database);
+        this.mongoOps = new MongoTemplate(MongoClients.create(getConnectionUrl(host, port)), database);
     }
 
     @Override
-    public long insertDocument(String collection, String content) {
-        mongoOps.insert(new GenericRecord(++id, content), collection);
-        return id;
+    public String getConnectionUrl(String host, int port) { return "mongodb://" + host + ":" + port; }
+
+    @Override
+    public GenericRecord insertDocument(String collection, String content) {
+        final GenericRecord genericRecord = new GenericRecord(++id, content);
+        mongoOps.insert(genericRecord, collection);
+        return genericRecord;
     }
 
     @Override
@@ -29,14 +33,14 @@ public class ConcreteMongoDb implements IDatabase{
     }
 
     @Override
-    public long updateDocument(String collection, long id, String content) {
+    public GenericRecord updateDocument(String collection, long id, String content) {
         mongoOps.updateFirst(new Query(where("_id").is(id)), update("content", content), GenericRecord.class, collection);
-        return id;
+        return new GenericRecord(id, content);
     }
 
     @Override
-    public long deleteDocument(String collection, long id) {
+    public GenericRecord deleteDocument(String collection, long id) {
         mongoOps.remove(new Query(where("_id").is(id)), GenericRecord.class, collection);
-        return id;
+        return new GenericRecord(id);
     }
 }
