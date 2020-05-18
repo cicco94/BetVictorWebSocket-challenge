@@ -48,11 +48,14 @@ Run `src/main/resources/websocket-client/index.html` from the browser
 - play with the swagger api at `http://localhost:8080/swagger-ui.html`
 - go back to the webSocketClientUI and take a look at the logs: do they solve the challenge?
 
-# The APIs
+## The APIs
 - `src/main/java/com/betVictor/challenge/restService/DocumentController.java`: it provides the apis for all the features described so far
 - `src/main/java/com/betVictor/challenge/restService/SystemController.java`: it provides 2 endpoints
     - `/api/v1/checkAppStatus`: it checks if the app is on
     - `/api/v1/checkSystemVersion`: it get the version of the services
+    
+## A taste of Java Functional Programming
+Take a look here `src/main/java/com/betVictor/challenge/uiHandlerService/ServicesMediator.java`, do you see how the `httpRequest` takes a function as parameter?
 
 ### Author
 Andrea Ciccotta - ciccottandrea@gmail.com
