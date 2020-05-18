@@ -1,4 +1,4 @@
-# Spring Boot WebSocket + Spring Data MongoDB + Swagger Example
+# Spring Boot WebSocket + Spring Data MongoDB + Swagger Challenge
 
 ## What you will run
 An integrationTest project which will uses this server for show logs like in [doc/example.PNG](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/doc/example.PNG) trough a Java Spring WebSocket
