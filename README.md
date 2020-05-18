@@ -40,6 +40,7 @@ The services of this challenge are 4:
 Run `src/main/resources/websocket-client/index.html` from the browser
 
 ## All together!
+- use the default configs or customize it here `src/main/resources/application.properties`
 - make sure to have a mongoDB istance, you can run the following docker: `scripts/run-docker.bat`
 - run `src/main/java/com/betVictor/challenge/App.java`
 - open the webSocketClientUI `src/main/resources/websocket-client/index.html` from the browser
