@@ -7,19 +7,12 @@ import lombok.Getter;
 @Getter
 public class HttpMethodInput {
     private final String collection;
-    private final long id;
-    private final String content;
+    private final String id;
+    private String content;
 
-    public HttpMethodInput(String collection, long id) {
+    public HttpMethodInput(String collection, String id) {
         this.collection = collection;
         this.id = id;
-        this.content = null;
-    }
-
-    public HttpMethodInput(String collection, String content) {
-        this.collection = collection;
-        this.id = -1;
-        this.content = content;
     }
 
     @Override

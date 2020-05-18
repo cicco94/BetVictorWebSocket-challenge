@@ -1,21 +1,17 @@
 package com.betVictor.challenge.common.model;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class GenericRecord extends HttpResponseObject {
     @Id
-    private long _id;
+    private String _id;
     @Field("content")
     private String content;
-
-    public GenericRecord() { }
-
-    public GenericRecord(long _id) {
-        this._id = _id;
-    }
 
     @Override
     public String toString() {

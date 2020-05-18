@@ -20,25 +20,25 @@ public class ServicesMediator {
         this.props = props;
     }
 
-    public HttpResponse insertDocument(String collection, String content) {
+    public HttpResponse insertDocument(String collection, String id, String content) {
         return httpRequest("inserting a document...",
-                new HttpMethodInput(collection, content),
-                httpMethodInput -> this.database.insertDocument(httpMethodInput.getCollection(), httpMethodInput.getContent()));
+                new HttpMethodInput(collection, id, content),
+                httpMethodInput -> this.database.insertDocument(httpMethodInput.getCollection(), id, httpMethodInput.getContent()));
     }
 
-    public HttpResponse getDocument(String collection, long id) {
+    public HttpResponse getDocument(String collection, String id) {
         return httpRequest("getting a document...",
                 new HttpMethodInput(collection, id),
                 httpMethodInput -> this.database.getDocument(httpMethodInput.getCollection(), httpMethodInput.getId()));
     }
 
-    public HttpResponse updateDocument(String collection, long id, String content) {
+    public HttpResponse updateDocument(String collection, String id, String content) {
         return httpRequest("updating a document...",
                 new HttpMethodInput(collection, id, content),
                 httpMethodInput -> this.database.updateDocument(httpMethodInput.getCollection(), httpMethodInput.getId(), httpMethodInput.getContent()));
     }
 
-    public HttpResponse deleteDocument(String collection, long id) {
+    public HttpResponse deleteDocument(String collection, String id) {
         return httpRequest("deleting a document...",
                 new HttpMethodInput(collection, id),
                 httpMethodInput -> this.database.deleteDocument(httpMethodInput.getCollection(), httpMethodInput.getId()));

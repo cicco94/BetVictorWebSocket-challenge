@@ -10,7 +10,6 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
 public class ConcreteMongoDb implements IDatabase{
-    private static long id = System.currentTimeMillis();
     private final MongoOperations mongoOps;
 
     public ConcreteMongoDb(String host, String port, String database) {
@@ -20,24 +19,24 @@ public class ConcreteMongoDb implements IDatabase{
     public static String getConnectionUrl(String host, String port) { return "mongodb://" + host + ":" + port; }
 
     @Override
-    public String insertDocument(String collection, String content) {
-        return mongoOps.insert(new GenericRecord(++id, content), collection).toJson();
+    public String insertDocument(String collection, String id, String content) {
+        return mongoOps.insert(new GenericRecord(id, content), collection).toJson();
     }
 
     @Override
-    public String getDocument(String collection, long id) {
+    public String getDocument(String collection, String id) {
         GenericRecord genericRecord = mongoOps.findOne(new Query(where("_id").is(id)), GenericRecord.class, collection);
         if(genericRecord != null) return genericRecord.toJson();
         return null;
     }
 
     @Override
-    public String updateDocument(String collection, long id, String content) {
+    public String updateDocument(String collection, String id, String content) {
         return mongoOps.updateFirst(new Query(where("_id").is(id)), update("content", content), GenericRecord.class, collection).toString();
     }
 
     @Override
-    public String deleteDocument(String collection, long id) {
+    public String deleteDocument(String collection, String id) {
         return mongoOps.remove(new Query(where("_id").is(id)), GenericRecord.class, collection).toString();
     }
 }
