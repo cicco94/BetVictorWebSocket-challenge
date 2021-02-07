@@ -1,11 +1,15 @@
 # Spring Boot WebSocket + Spring Data MongoDB + Swagger Challenge
 
+## Introduction
+This project solve a challenge mainly with the following technologies:
+- Java Spring Boot WebSocket
+- Java Spring Data MongoDB
+Take a look at the test of the challenge here: `doc/VCCP Team Interview Task.pdf`
+
 ## What you will run
-An integrationTest project which will uses this server for show logs like 
+A webSocket + an integrationTest project which will uses this server for show logs like 
 
 ![](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/doc/example.PNG) 
-
-trough a Java Spring WebSocket
 
 ## Architecture diagram
 ![](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/BetVictorArchitecture.png)
@@ -17,12 +21,6 @@ trough a Java Spring WebSocket
 ## Run the tests
 - `Unit test`: run the `mvn test` lifecycle
 - `Integration test`: clone the following repo `https://github.com/cicco94/BetVicotr-integration-test`
-
-## Introduction
-This project solve a challenge mainly with the following technologies:
-- Java Spring Boot WebSocket
-- Java Spring Data MongoDB
-Take a look at the test of the challenge here: `doc/VCCP Team Interview Task.pdf`
 
 ## The services
 The services of this challenge are 4:
