@@ -1,10 +1,14 @@
 # Spring Boot WebSocket + Spring Data MongoDB + Swagger Challenge
 
 ## What you will run
-An integrationTest project which will uses this server for show logs like in [doc/example.PNG](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/doc/example.PNG) trough a Java Spring WebSocket
+An integrationTest project which will uses this server for show logs like 
+
+![](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/doc/example.PNG) 
+
+trough a Java Spring WebSocket
 
 ## Architecture diagram
-Take a look here  [BetVictorArchitecture.png](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/BetVictorArchitecture.png)
+![](https://github.com/cicco94/betVictorWebSocket-challenge/blob/master/BetVictorArchitecture.png)
 
 ## Compile this project
 - make sure you have the `lombok plugin`
